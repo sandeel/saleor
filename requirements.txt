@@ -4,6 +4,7 @@
 #
 #    pip-compile requirements.in
 #
+mysql-python
 Babel==2.2.0              # via babeldjango, django-prices
 BabelDjango==0.2.2        # via django-prices
 boto==2.39.0              # via django-offsite-storage
