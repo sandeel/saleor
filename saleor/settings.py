@@ -43,6 +43,7 @@ DATABASES = {
     }
 }
 
+SECRET_KEY = os.getenv('DB_PASS')
 
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
