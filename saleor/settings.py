@@ -7,6 +7,7 @@ import dj_database_url
 import dj_email_url
 from django.contrib.messages import constants as messages
 import django_cache_url
+import os
 
 
 DEBUG = ast.literal_eval(os.environ.get('DEBUG', 'True'))
@@ -29,8 +30,18 @@ CACHE_URL = os.environ.get('CACHE_URL',
                            os.environ.get('REDIS_URL', 'locmem://'))
 CACHES = {'default': django_cache_url.parse(CACHE_URL)}
 
-SQLITE_DB_URL = 'sqlite:///' + os.path.join(PROJECT_ROOT, 'dev.sqlite')
-DATABASES = {'default': dj_database_url.config(default=SQLITE_DB_URL)}
+//SQLITE_DB_URL = 'sqlite:///' + os.path.join(PROJECT_ROOT, 'dev.sqlite')
+//DATABASES = {'default': dj_database_url.config(default=SQLITE_DB_URL)}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv('DB_NAME', 'lwc'),
+        'USER': 'lwc',
+        'PASSWORD': os.getenv('DB_PASS'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': '3306',
+    }
+}
 
 
 TIME_ZONE = 'America/Chicago'
@@ -210,9 +221,9 @@ AUTH_USER_MODEL = 'userprofile.User'
 
 LOGIN_URL = '/account/login'
 
-DEFAULT_CURRENCY = 'USD'
+DEFAULT_CURRENCY = 'EUR'
 AVAILABLE_CURRENCIES = [DEFAULT_CURRENCY]
-DEFAULT_WEIGHT = 'lb'
+DEFAULT_WEIGHT = 'kg'
 
 ACCOUNT_ACTIVATION_DAYS = 3
 
@@ -226,16 +237,21 @@ GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
 
 PAYMENT_MODEL = 'order.Payment'
-
+PAYMENT_HOST = 'u3417ebcb4f4355ace7aa:8080'
+PAYMENT_USES_SSL = False
 PAYMENT_VARIANTS = {
-    'default': ('payments.dummy.DummyProvider', {})
+    'default': ('payments.dummy.DummyProvider', {}),
+    'stripe': ('payments.stripe.StripeProvider', {
+        'secret_key': 'sk_test_T86oR2vE8opYYtbfbYRV6Oz9',
+        'public_key': 'pk_test_2d9cGno2Xf42e9zZZ9Oh3y1V'})
 }
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 CHECKOUT_PAYMENT_CHOICES = [
-    ('default', 'Dummy provider')
+    ('default', 'Dummy provider'),
+    ('stripe', 'Debit/Credit Card')
 ]
 
 MESSAGE_TAGS = {
