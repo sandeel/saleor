@@ -1,10 +1,10 @@
 branch-defaults:
   master:
-    environment: Devel
+    environment: lwc-DevEn-QNA1B5EG5LK7
 global:
   application_name: lwc-ElasticBeanstalkApplication-6K32AGUH3KXF
-  default_ec2_keyname: null
-  default_platform: 64bit Amazon Linux 2015.09 v2.0.8 running Python 3.4
+  default_ec2_keyname: id_rsa
+  default_platform: Python 3.4
   default_region: us-east-1
   profile: null
   sc: git
