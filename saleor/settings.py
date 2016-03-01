@@ -124,6 +124,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 INSTALLED_APPS = [
+    'saleor',
     # External apps that need to go before django's
     'offsite_storage',
 
