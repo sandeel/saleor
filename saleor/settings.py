@@ -243,7 +243,7 @@ PAYMENT_VARIANTS = {
     'stripe': ('payments.stripe.StripeProvider', {
         'secret_key': os.getenv('STRIPE_SECRET_KEY_TEST'),
         'public_key': os.getenv('STRIPE_PUBLIC_KEY_TEST')
-    )
+    })
 }
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
