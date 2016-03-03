@@ -68,15 +68,6 @@ DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, 'saleor', 'static')
-]
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
-]
 
 context_processors = [
     'django.contrib.auth.context_processors.auth',
@@ -286,6 +277,15 @@ if AWS_MEDIA_BUCKET_NAME:
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_URL = "http://" + AWS_STATIC_BUCKET_NAME + "s3-website-us-east-1.amazonaws.com/"
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, 'saleor', 'static')
+]
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+]
 VERSATILEIMAGEFIELD_RENDITION_KEY_SETS = {
     'defaults': [
         ('list_view', 'crop__100x100'),
