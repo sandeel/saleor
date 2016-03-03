@@ -278,7 +278,7 @@ if AWS_MEDIA_BUCKET_NAME:
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
-STATIC_URL = 'http://s3.amazonaws.com/%s/static' % AWS_STATIC_BUCKET_NAME
+STATIC_URL = 'http://s3.amazonaws.com/%s/static/' % AWS_STATIC_BUCKET_NAME
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, 'saleor', 'static')
 ]
