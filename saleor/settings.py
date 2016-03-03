@@ -21,7 +21,7 @@ ROOT_URLCONF = 'saleor.urls'
 WSGI_APPLICATION = 'saleor.wsgi.application'
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    (os.getenv('SUPERUSER_NAME'), os.getenv('SUPERUSER_EMAIL')),
 )
 MANAGERS = ADMINS
 INTERNAL_IPS = os.environ.get('INTERNAL_IPS', '127.0.0.1').split()
@@ -241,15 +241,16 @@ PAYMENT_USES_SSL = False
 PAYMENT_VARIANTS = {
     'default': ('payments.dummy.DummyProvider', {}),
     'stripe': ('payments.stripe.StripeProvider', {
-        'secret_key': 'sk_test_T86oR2vE8opYYtbfbYRV6Oz9',
-        'public_key': 'pk_test_2d9cGno2Xf42e9zZZ9Oh3y1V'})
+        'secret_key': os.getenv('STRIPE_SECRET_KEY_TEST'),
+        'public_key': os.getenv('STRIPE_PUBLIC_KEY_TEST')
+    )
 }
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 CHECKOUT_PAYMENT_CHOICES = [
-    ('default', 'Dummy provider'),
+    # ('default', 'Dummy provider'),
     ('stripe', 'Debit/Credit Card')
 ]
 
@@ -257,7 +258,7 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-LOW_STOCK_THRESHOLD = 10
+LOW_STOCK_THRESHOLD = 5
 
 PAGINATE_BY = 16
 
